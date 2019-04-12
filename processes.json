@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "name": "proxy-express",
+    "script": "./bin/www",
+    "cwd": "./",
+    "watch": false,
+    "instances": 1,
+    "exec_mode": "cluster"
+  }]
+}

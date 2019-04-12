@@ -1,0 +1,20 @@
+{
+  "restartable": "rs",
+  "colours": true,
+  "ignore": [
+    ".git",
+    "node_modules/**/*",
+    "src/**/*",
+    "public/**/*",
+    "dist/**/*",
+    "static/**/*",
+    "temp/**/*"
+  ],
+  "watch": [
+    "server/**/*",
+    "server.js",
+    "config/**/*"
+  ],
+  "verbose": true,
+  "ext": "js json"
+}
