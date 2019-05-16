@@ -4,7 +4,8 @@
  *  正确命令在 package.json 中
  */
 const express = require('express')
-// const bodyParser = require('body-parser')
+const router = express.Router()
+const bodyParser = require('body-parser')
 const path = require('path')
 const morgan = require('morgan')
 const compression = require('compression')
@@ -16,6 +17,8 @@ const history = require('connect-history-api-fallback')
 const TIME_OUT = 5 * 60 * 1000 // 超时时间 ms
 
 const uuid = require('node-uuid')
+
+const apiRouters = require('./api')(router)
 
 function assignId(req, res, next) {
   req.id = uuid.v4()
@@ -61,7 +64,6 @@ app.use(history({
 
 app.use(express.static(path.join(__dirname, 'dist')))
 app.use(express.static(path.join(__dirname, 'public')))
-
 // app.use(cookieParser())
 // app.use(cookieSession({
 //   name: 'fjk-session',
@@ -79,18 +81,20 @@ app.use(express.static(path.join(__dirname, 'public')))
 if (!config.get('disableProxy')) {
   const proxyOption = {
     target: config.get('apiHost'),
-    pathRewrite: {
-      '^/api/': '/' // 重写请求，api/解析为/
-    },
+    // pathRewrite: {
+    //   '^/api/': '/' // 重写请求，api/解析为/
+    // },
+    secure: false,
     changeOrigin: true,
   }
 
-  app.use('/api/*', morgan(':id :method :url :response-time ms'), proxy(proxyOption))
+  app.use('/consun/*', morgan(':id :method :url :response-time ms'), proxy(proxyOption))
 }
 
 // app.get('/', function(req, res) {
 //   res.sendFile('dist/index.html', { root: __dirname })
 // })
+app.use('/api', bodyParser.json(), bodyParser.urlencoded({ extended: false }), apiRouters)
 
 // catch 404 and forward to err handler
 app.use((req, res, next) => {

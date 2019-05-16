@@ -1,5 +1,5 @@
 {
-  "name": "proxy-express",
+  "name": "kangchen-server",
   "version": "1.0.0",
   "description": "",
   "main": "bin/www",
@@ -30,6 +30,7 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "http-proxy-middleware": "^0.19.1",
+    "mockjs": "^1.0.1-beta3",
     "morgan": "^1.9.1",
     "node-uuid": "^1.4.8"
   }

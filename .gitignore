@@ -22,3 +22,4 @@ package-lock.json
 /config/local.js
 .eslintcache
 .public
+dist/
